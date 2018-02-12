@@ -115,3 +115,43 @@ from app import routes
 * Create a `POST` handler in our view function
 
 ## [Chapter 4: Databases](https://blog.miguelgrinberg.com/post/the-flask-mega-tutorial-part-iv-database)
+
+Uses [SQLAlchemy](http://www.sqlalchemy.org/), well [Flask-SQLAlchemy](http://flask-sqlalchemy.pocoo.org/2.3/), for ORM. Can plug in any number of relational databases
+
+### Database Models
+
+> The data that will be stored in the database will be represented by a collection of classes, usually called database models. The ORM layer within SQLAlchemy will do the translations required to map objects created from these classes into rows in the proper database tables.
+
+> The id field is usually in all models, and is used as the primary key. Each user in the database will be assigned a unique id value, stored in this field.
+
+### Migrations
+
+[Flask-Migrate](https://github.com/miguelgrinberg/flask-migrate) for migrations, based on [Alembic](https://pypi.python.org/pypi/alembic) which is the migration tool for SQLAlchemy. Migrations are used when we need to change how data is stored.
+
+* Adds `flask db` subcommand to flask CLI
+* `flask db init` creates new migration repository
+* `flask db migrate -m "message"` generates migration script
+* `flask db upgrade` runs migrations
+* `flask db downgrade` rolls back migrations
+
+> Without migrations you would need to figure out how to change the schema of your database, both in your development machine and then again in your server, and this could be a lot of work.
+
+* `db.relationship` - not an actual database field, but a high-level view of the relationship between users and posts, and for that reason it isn't in the database diagram
+
+> Changes to a database are done in the context of a session, which can be accessed as `db.session`. Multiple changes can be accumulated in a session and once all the changes have been registered you can issue a single `db.session.commit()`, which writes all the changes atomically. If at any time while working on a session there is an error, a call to `db.session.rollback()` will abort the session and remove any changes stored in it. The important thing to remember is that changes are only written to the database when `db.session.commit()` is called. Sessions guarantee that the database will never be left in an inconsistent state.
+
+### Flask Shell
+
+We can use the `flask shell` command to get into the Python shell and have the application context be reloaded.
+
+In our `FLASK_APP` script, we can add shell context processors that can load information as required:
+
+```python
+@app.shell_context_processor
+def make_shell_context():
+    return {
+        'db': db,
+        'User': User,
+        'Post': Post,
+    }
+```

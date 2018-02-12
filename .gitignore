@@ -103,3 +103,6 @@ ENV/
 
 # ide
 .vscode/
+
+# sqlite
+app.db
