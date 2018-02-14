@@ -118,6 +118,10 @@ from app import routes
 
 Uses [SQLAlchemy](http://www.sqlalchemy.org/), well [Flask-SQLAlchemy](http://flask-sqlalchemy.pocoo.org/2.3/), for ORM. Can plug in any number of relational databases
 
+> I have also added two methods to this class called `validate_username()` and `validate_email()`. When you add any methods that match the pattern `validate_<field_name>`, WTForms takes those as custom validators and invokes them in addition to the stock validators.
+
+> a validation error is triggered by raising `ValidationError`. The message included as the argument in the exception will be the message that will be displayed next to the field for the user to see.
+
 ### Database Models
 
 > The data that will be stored in the database will be represented by a collection of classes, usually called database models. The ORM layer within SQLAlchemy will do the translations required to map objects created from these classes into rows in the proper database tables.
@@ -155,3 +159,27 @@ def make_shell_context():
         'Post': Post,
     }
 ```
+
+## [Chapter 5: User Logins](https://blog.miguelgrinberg.com/post/the-flask-mega-tutorial-part-v-user-logins)
+
+### Password Hashing
+
+We take a password and put it thru a non-reversible cryptographical algorithm so that it's true value is obfuscated.
+
+### Flask-Login
+
+> This extension manages the user logged-in state, so that for example users can log in to the application and then navigate to different pages while the application "remembers" that the user is logged in. It also provides the "remember me" functionality that allows users to remain logged in even after closing the browser window.
+
+Need to add the following to the `User` model:
+    * `is_authenticated` a property that is True if the user has valid credentials or False otherwise.
+    * `is_active` a property that is True if the user's account is active or False otherwise.
+    * `is_anonymous` a property that is False for regular users, and True for a special, anonymous user.
+    * `get_id()` a method that returns a unique identifier for the user as a string.
+
+We can add these to our model via `flask_login.UserMixin`
+
+> Flask-Login keeps track of the logged in user by storing its unique identifier in Flask's user session, a storage space assigned to each user who connects to the application. Each time the logged-in user navigates to a new page, Flask-Login retrieves the ID of the user from the session, and then loads that user into memory.
+
+Need to create a method and register it with `@flask_login.login.user_loader` so we know which user we are dealing with
+
+We can also rediret users based on next query parameters, but be careful that we only redirect relative URLs not full URLs
