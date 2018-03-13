@@ -203,3 +203,17 @@ We can also rediret users based on next query parameters, but be careful that we
 `@app.before_request`
 `@app.after_request`
 
+## [Chapter 7: Error Handling](https://blog.miguelgrinberg.com/post/the-flask-mega-tutorial-part-vii-error-handling)
+
+### Debug Mode
+
+Flask can show errors in the browser:
+    * `export FLASK_DEBUG=1`
+
+### Logging
+
+When the application is in production, we need a way to keep track of errors so we can the problems that occur in order to fix them later.
+
+Use standard library logger, it just makes more sense.
+
+## [Chapter 8: Followers](https://blog.miguelgrinberg.com/post/the-flask-mega-tutorial-part-viii-followers)

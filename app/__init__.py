@@ -15,4 +15,4 @@ migrate = Migrate(app, db)
 login = LoginManager(app)
 login.login_view = 'login'  # set the login page
 
-from app import routes, models  # noqa
+from app import routes, models, errors  # noqa
