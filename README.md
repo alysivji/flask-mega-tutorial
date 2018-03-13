@@ -12,6 +12,8 @@ $ flask run
  * Debugger PIN: 148-568-946
 ```
 
+Account Info: sivpack / 123456
+
 ## [Chapter 1: Hello World](https://blog.miguelgrinberg.com/post/the-flask-mega-tutorial-part-i-hello-world)
 
 > The `__name__` variable passed to the Flask class is a Python predefined variable, which is set to the name of the module in which it is used. Flask uses the location of the module passed here as a starting point when it needs to load associated resources such as template files
@@ -69,6 +71,10 @@ Insert as follows:
 #### Links
 
 We can link to pages, but we should really link to functions using `url_for()` which generates URLs using the internal mapping of URLs to view functions
+
+#### Sub Templates
+
+If we are reusing parts of the layout over and over again in the same page, it might be worth loooking into sub-templates which can be inserted into each template using `{% include '_page.html' %}
 
 ## [Chapter 3: Web Forms](https://blog.miguelgrinberg.com/post/the-flask-mega-tutorial-part-iii-web-forms)
 
@@ -144,6 +150,8 @@ Uses [SQLAlchemy](http://www.sqlalchemy.org/), well [Flask-SQLAlchemy](http://fl
 
 > Changes to a database are done in the context of a session, which can be accessed as `db.session`. Multiple changes can be accumulated in a session and once all the changes have been registered you can issue a single `db.session.commit()`, which writes all the changes atomically. If at any time while working on a session there is an error, a call to `db.session.rollback()` will abort the session and remove any changes stored in it. The important thing to remember is that changes are only written to the database when `db.session.commit()` is called. Sessions guarantee that the database will never be left in an inconsistent state.
 
+* `.first_or_404()` returns a result or sends a 404 back to the client
+
 ### Flask Shell
 
 We can use the `flask shell` command to get into the Python shell and have the application context be reloaded.
@@ -183,3 +191,15 @@ We can add these to our model via `flask_login.UserMixin`
 Need to create a method and register it with `@flask_login.login.user_loader` so we know which user we are dealing with
 
 We can also rediret users based on next query parameters, but be careful that we only redirect relative URLs not full URLs
+
+* `current_user` gets the user that is currently logged in from the db
+
+## [Chapter 6: Profile Page and Avatars](https://blog.miguelgrinberg.com/post/the-flask-mega-tutorial-part-vi-profile-page-and-avatars)
+
+### Deferred Request Callbacks
+
+[docs](http://flask.pocoo.org/docs/0.12/patterns/deferredcallbacks/)
+
+`@app.before_request`
+`@app.after_request`
+
