@@ -1,0 +1,18 @@
+version: '3'
+
+services:
+  web:
+    build:
+      context: .
+    environment:
+      FLASK_APP: app/__init__.py
+      FLASK_DEBUG: 1
+    container_name: flaskmega_web
+    image: flaskmega
+    command: ["gunicorn", "app:app", "-b", "0.0.0.0:5000", "--reload", "--timeout",  "100000"]
+    volumes:
+      - .:/home/web/
+    ports:
+      - "5000:5000"
+    stdin_open: true
+    tty: true

@@ -1,0 +1,6 @@
+Flask==0.12.2
+flask-login
+flask-migrate
+Flask-WTF==0.14.2
+flask-sqlalchemy
+gunicorn==19.7.1
