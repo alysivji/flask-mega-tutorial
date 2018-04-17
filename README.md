@@ -217,3 +217,34 @@ When the application is in production, we need a way to keep track of errors so 
 Use standard library logger, it just makes more sense.
 
 ## [Chapter 8: Followers](https://blog.miguelgrinberg.com/post/the-flask-mega-tutorial-part-viii-followers)
+
+### Database Relationships
+
+[Additional information](https://www.lifewire.com/database-relationships-1019729)
+
+#### One-to-One
+
+> This type of relationship allows only one record on each side of the relationship.
+>
+> The primary key relates to only one record – or none – in another table. For example, in a marriage, each spouse has only one other spouse. This kind of relationship can be implemented in a single table and therefore does not use a foreign key.
+
+#### One-to-Many
+
+> a one-to-many relationship exists when one row in table A may be linked with many rows in table B, but one row in table B is linked to only one row in table ([Wikipedia](https://en.wikipedia.org/wiki/One-to-many_(data_model)))
+
+* property of the relationship
+* relationship is represented in the database with the use of a foreign key on the "many" side.
+
+> Consider a business with a database that has Customers and Orders tables. A single customer can purchase multiple orders, but a single order could not be linked to multiple customers. Therefore the Orders table would contain a foreign key that matched the primary key of the Customers table, while the Customers table would have no foreign key pointing to the Orders table. ([Source](https://www.lifewire.com/database-relationships-p2-1019758))
+
+#### Many-to-Many
+
+* This is a complex relationship in which many records in a table can link to many records in another table.
+
+> such relationships are usually implemented by means of an associative table (also known as junction table or cross-reference table), say, AB with two one-to-many relationships A -> AB and B -> AB. In this case the logical primary key for AB is formed from the two foreign keys([Wikipedia](https://en.wikipedia.org/wiki/Many-to-many_(data_model)))
+
+* While it may not seem obvious at first, the association table with its two foreign keys is able to efficiently answer all the queries about the relationship.
+
+* A relationship in which instances of a class are linked to other instances of the same class is called a *self-referential* relationship, and that is exactly what I have here.
+
+## [Chapter 9: Pagination](https://blog.miguelgrinberg.com/post/the-flask-mega-tutorial-part-ix-pagination)
