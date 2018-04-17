@@ -72,6 +72,8 @@ Insert as follows:
 
 We can link to pages, but we should really link to functions using `url_for()` which generates URLs using the internal mapping of URLs to view functions
 
+You can add any keyword arguments to `url_for`, and if the names of those arguments are not referenced in the URL directly, then Flask will include them in the URL as query arguments.
+
 #### Sub Templates
 
 If we are reusing parts of the layout over and over again in the same page, it might be worth loooking into sub-templates which can be inserted into each template using `{% include '_page.html' %}
@@ -248,3 +250,26 @@ Use standard library logger, it just makes more sense.
 * A relationship in which instances of a class are linked to other instances of the same class is called a *self-referential* relationship, and that is exactly what I have here.
 
 ## [Chapter 9: Pagination](https://blog.miguelgrinberg.com/post/the-flask-mega-tutorial-part-ix-pagination)
+
+* If we are trying to render all the items in the database, this could become a problem if our resultset is large
+  * this is why we paginate
+* Supported natively by Flask-SQLAlchemy
+
+```python
+user.followed_posts().paginate([pageNum], [items_per_page], [error_flag]).items
+
+user.followed_posts().paginate(1, 20, False).items
+```
+
+Pagination object has other attributes:
+
+* `has_next`: True if there is at least one more page after the current one
+* `has_prev`: True if there is at least one more page before the current one
+* `next_num`: page number for the next page
+* `prev_num`: page number for the previous page
+
+### Aside
+
+[Post/Redirect/Get](https://en.wikipedia.org/wiki/Post/Redirect/Get) - web design pattern that prevents some duplicate form submissions,c reating a more intuitive interface for user agents
+
+## [Chapter 10: Email Support](https://blog.miguelgrinberg.com/post/the-flask-mega-tutorial-part-x-email-support)

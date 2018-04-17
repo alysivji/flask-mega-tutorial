@@ -4,6 +4,8 @@ basedir = os.path.abspath(os.path.dirname(__file__))
 
 
 class Config(object):
+    POSTS_PER_PAGE = 25
+
     SECRET_KEY = os.environ.get('SECRET_KEY', 'you-will-never-guess')
 
     SQLALCHEMY_DATABASE_URI = (
