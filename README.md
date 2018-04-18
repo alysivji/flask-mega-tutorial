@@ -68,6 +68,8 @@ Insert as follows:
 {% endblock %}
 ```
 
+Use `{{ super() }}` to not overwrite block
+
 #### Links
 
 We can link to pages, but we should really link to functions using `url_for()` which generates URLs using the internal mapping of URLs to view functions
@@ -319,3 +321,9 @@ A compact, self-contained way to securely transmit information between parties a
 
 > An area where Flask-Bootstrap does a fantastic job is in rendering of forms. Instead of having to style the form fields one by one, Flask-Bootstrap comes with a macro that accepts a Flask-WTF form object as an argument and renders the complete form using Bootstrap styles.
 > `{% import 'bootstrap/wtf.html' as wtf %}` and `{{ wtf.quick_form(form) }}`
+
+## [Chapter 12: Dates and Times](https://blog.miguelgrinberg.com/post/the-flask-mega-tutorial-part-xii-dates-and-times)
+
+* always use UTC time in database
+* browser has information about user's timezone, datetime format, etc so let's use JavaScript to show the right time
+* Flask-Moment is a wrapper around moment.js which lets us display times in the user's local timezone
