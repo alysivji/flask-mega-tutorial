@@ -7,6 +7,8 @@ services:
     environment:
       FLASK_APP: app/__init__.py
       FLASK_DEBUG: 1
+      MAIL_SERVER: localhost
+      MAIL_PORT: 8025
     container_name: flaskmega_web
     image: flaskmega
     command: ["gunicorn", "app:app", "-b", "0.0.0.0:5000", "--reload", "--timeout",  "100000"]

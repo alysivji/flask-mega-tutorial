@@ -1,7 +1,10 @@
 Flask==0.12.2
-flask-login
-flask-migrate
+Flask-Login==0.4.1
+Flask-Mail==0.9.1
+Flask-Migrate==2.1.1
+Flask-SQLAlchemy==2.3.2
 Flask-WTF==0.14.2
-flask-sqlalchemy
 gunicorn==19.7.1
+pyjwt==1.6.1
+flake8
 pytest

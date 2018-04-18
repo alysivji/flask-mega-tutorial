@@ -45,10 +45,10 @@ logs:
 	docker-compose logs -f
 
 flask_shell: ## Shell into Flask process
-	docker-compose exec web flask konch
+	docker-compose exec web flask shell
 
 shell: ## Shell into web container
-	docker-compose exec -u root web bash
+	docker-compose exec -u root web /bin/sh
 
 migration: up ## Create migrations using flask migrate
 	docker-compose exec web flask db migrate -m "$(m)"
@@ -78,3 +78,6 @@ max_line_length = 100
 lint: up
 	docker-compose exec web flake8 \
 		--max-line-length $(max_line_length)
+
+smtp_server:
+	docker-compose exec web python -m smtpd -n -c DebuggingServer localhost:8025

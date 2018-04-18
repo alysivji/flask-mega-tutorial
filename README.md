@@ -273,3 +273,41 @@ Pagination object has other attributes:
 [Post/Redirect/Get](https://en.wikipedia.org/wiki/Post/Redirect/Get) - web design pattern that prevents some duplicate form submissions,c reating a more intuitive interface for user agents
 
 ## [Chapter 10: Email Support](https://blog.miguelgrinberg.com/post/the-flask-mega-tutorial-part-x-email-support)
+
+Can use [Flask-Mail](https://pythonhosted.org/Flask-Mail/) to send emails
+
+### Asynchronous Tasks
+
+Sending email is going to block the request so it's probably a good idea to use some sort of asynchronous process to managing the sending and receiving of email.
+
+> You probably expected that only the msg argument would be sent to the thread, but as you can see in the code, I'm also sending the application instance. When working with threads there is an important design aspect of Flask that needs to be kept in mind. Flask uses contexts to avoid having to pass arguments across functions. I'm not going to go into a lot of detail on this, but know that there are two types of contexts, the **application context** and the **request context**. In most cases, these contexts are automatically managed by the framework, but when the application starts custom threads, contexts for those threads may need to be manually created.
+>
+> There are many extensions that require an application context to be in place to work, because that allows them to find the Flask application instance without it being passed as an argument. The reason many extensions need to know the application instance is because they have their configuration stored in the app.config object. This is exactly the situation with Flask-Mail. The mail.send() method needs to access the configuration values for the email server, and that can only be done by knowing what the application is. The application context that is created with the with app.app_context() call makes the application instance accessible via the current_app variable from Flask.
+
+From [docs](http://flask.pocoo.org/docs/0.12/appcontext/):
+
+* While a request is active, the context local objects (`flask.request` and others) point to the current request
+
+> The main reason for the application’s context existence is that in the past a bunch of functionality was attached to the request context for lack of a better solution. Since one of the pillars of Flask’s design is that you can have more than one application in the same Python process.
+
+* never moves between threads and is not shared between requests so perfect place to store configuration information
+* typically used to cache resources that need to be created on a per-request or usage case (i.e. database conenctions)
+* `_app_ctx_Stack.top` is for Flask and its extensions
+
+* Creating an Application Context:
+    * Whenever request ontext is pushed, application context will be created if necessary
+    * `with app.app_context()` and `current_app` points to app in context manager
+
+### JSON Web Tokens (JWT)
+
+* [jwt.io Introduction](https://jwt.io/introduction/)
+* [dev.to article](https://dev.to/yos/stateless-authentication-with-json-web-tokens--km3)
+
+A compact, self-contained way to securely transmit information between parties as a JSON object.
+
+* Three components: header, payload, signature.
+  * **Header** contains information about the algorithm and token type
+  * **Payload** contains claims about the sending entity and additional metadata ([standard JWT fields](https://www.iana.org/assignments/jwt/jwt.xhtml))
+  * **Signature** is used to verify that the sender of the JWT is who they say they are and that the message wasn't changed
+
+* Anybody can read the header and payload so make sure to encrypt the payload as needed.
