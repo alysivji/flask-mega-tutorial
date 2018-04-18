@@ -295,8 +295,8 @@ From [docs](http://flask.pocoo.org/docs/0.12/appcontext/):
 * `_app_ctx_Stack.top` is for Flask and its extensions
 
 * Creating an Application Context:
-    * Whenever request ontext is pushed, application context will be created if necessary
-    * `with app.app_context()` and `current_app` points to app in context manager
+  * Whenever request ontext is pushed, application context will be created if necessary
+  * `with app.app_context()` and `current_app` points to app in context manager
 
 ### JSON Web Tokens (JWT)
 
@@ -311,3 +311,11 @@ A compact, self-contained way to securely transmit information between parties a
   * **Signature** is used to verify that the sender of the JWT is who they say they are and that the message wasn't changed
 
 * Anybody can read the header and payload so make sure to encrypt the payload as needed.
+
+## [Chapter 11: Facelift](https://blog.miguelgrinberg.com/post/the-flask-mega-tutorial-part-xi-facelift)
+
+* CSS Frameworks make everybody a designer. Bootstrap is good enough for backend developers
+* [Flask-Bootstrap](https://pythonhosted.org/Flask-Bootstrap/index.html) provides base template that allows us to [extend blocks](https://pythonhosted.org/Flask-Bootstrap/basic-usage.html#available-blocks)
+
+> An area where Flask-Bootstrap does a fantastic job is in rendering of forms. Instead of having to style the form fields one by one, Flask-Bootstrap comes with a macro that accepts a Flask-WTF form object as an argument and renders the complete form using Bootstrap styles.
+> `{% import 'bootstrap/wtf.html' as wtf %}` and `{{ wtf.quick_form(form) }}`
