@@ -327,3 +327,32 @@ A compact, self-contained way to securely transmit information between parties a
 * always use UTC time in database
 * browser has information about user's timezone, datetime format, etc so let's use JavaScript to show the right time
 * Flask-Moment is a wrapper around moment.js which lets us display times in the user's local timezone
+
+## [Chapter 13: I18n and L10n](https://blog.miguelgrinberg.com/post/the-flask-mega-tutorial-part-xiii-i18n-and-l10n)
+
+* We have a very English-centric view of the world, but our users can come from anywhere. Use [Flask-Babel](https://pythonhosted.org/Flask-Babel/) to support
+* `Accept-Language` header can be used to give a list of preferred languages with weights based on preferences (set in browser)
+* Flask Babel's `best_match()` can be used to figure out what language the user prefers
+
+> The normal workflow when making an application available in multiple languages is to mark all the texts that need translations in the source code. After the texts are marked, Flask-Babel will scan all the files and extract those texts into a separate translation file using the gettext tool. Unfortunately this is a tedious task that needs to be done to enable translations.
+>
+> The way texts are marked for translation is by wrapping them in a function call that as a convention is called `_()`, just an underscore. `_()` wraps the base langauge and the function will use the best language selected by the function decorated with `localeselector`
+
+There is a lot more, but don't need to worry about until we do.
+
+### Command Line Enchancements
+
+* Flask relies on [Click](http://click.pocoo.org/5/) for all its command-line operations
+
+```python
+@app.cli.group()
+def translate():
+    """
+    Translation and localization commands.
+    """
+    pass
+```
+
+Look into Click if we want to do more here
+
+## [Chapter 14: Ajax](https://blog.miguelgrinberg.com/post/the-flask-mega-tutorial-part-xiv-ajax)

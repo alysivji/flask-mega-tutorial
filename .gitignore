@@ -105,5 +105,6 @@ ENV/
 # ide
 .vscode/
 
-# sqlite
+# flask mega tutorial files
 app.db
+messages.pot
